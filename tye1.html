@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบลงเวลาทำงาน</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://www.example.com/space-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        .clock {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 1em;
+            color: #000;
+        }
+        button {
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .log-in {
+            background-color: #1a75ff;
+            color: white;
+        }
+        .log-out {
+            background-color: #ffbf00;
+            color: white;
+        }
+        .summary {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            color: white;
+        }
+        .credit {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ระบบลงเวลาทำงาน</h1>
+        <div class="clock" id="clock">06:53:50</div>
+        <label for="name">เลือกชื่อ</label>
+        <select id="name">
+            <option value="">-- Select Name --</option>
+            <option value="ตี๋">ตี๋</option>
+            <!-- Add more options here -->
+        </select>
+        <button class="log-in" onclick="logTime('in')">ลงเวลามา</button>
+        <button class="log-out" onclick="logTime('out')">ลงเวลากลับ</button>
+        <div class="summary" id="summary"></div>
+        <div class="credit">Credit: JNC Edukasi</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const clock = document.getElementById('clock');
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clock.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function logTime(type) {
+            const name = document.getElementById('name').value;
+            const summary = document.getElementById('summary');
+            const now = new Date();
+            const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            if (name) {
+                const logEntry = document.createElement('p');
+                logEntry.textContent = `${name} ลงเวลา${type === 'in' ? 'เข้า' : 'ออก'}: ${time}`;
+                summary.appendChild(logEntry);
+            } else {
+                alert('กรุณาเลือกชื่อก่อน');
+            }
+        }
+    </script>
+</body>
+</html>
